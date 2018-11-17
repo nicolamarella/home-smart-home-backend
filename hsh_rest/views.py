@@ -33,7 +33,6 @@ class ListEvents(APIView):
             "event_type": event.pk,
         }
         serializer = EventEntrySerializer(data=new_data)
-        serializer_Event = EventSerializer(instance=event)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
