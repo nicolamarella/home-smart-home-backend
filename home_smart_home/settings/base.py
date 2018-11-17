@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
-    'hsh_rest'
+    'hsh_rest',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -91,6 +92,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'home_smart_home.wsgi.application'
 
+ASGI_APPLICATION = "home_smart_home.routing.application"
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases

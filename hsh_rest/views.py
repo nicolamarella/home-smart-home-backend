@@ -8,6 +8,8 @@ from .models import Event, EventEntry
 from .serializers import EventSerializer, EventEntrySerializer,\
     EventEntryReadSerializer
 from pudb import set_trace
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
 
 
 class ListEvents(APIView):
@@ -35,6 +37,11 @@ class ListEvents(APIView):
         serializer = EventEntrySerializer(data=new_data)
         if serializer.is_valid():
             serializer.save()
+            channel_layer = get_channel_layer()
+            async_to_sync(channel_layer.group_send)("model_updates", {
+                "type": "receive.update",
+                "object": serializer.data
+            })
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
