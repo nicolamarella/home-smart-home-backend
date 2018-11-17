@@ -5,7 +5,7 @@ from scipy.spatial import distance as dist
 from imutils.video import FileVideoStream
 from imutils.video import VideoStream
 from imutils import face_utils
-from .api import notify_server
+from api import notify_server
 import argparse
 import imutils
 import time

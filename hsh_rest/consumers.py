@@ -16,9 +16,9 @@ class EventEntryConsumer(WebsocketConsumer):
         print("ASDASD")
         # Called with either text_data or bytes_data for each frame
         # You can call:
-        self.send(text_data="Hello world! {}".format(text))
+        self.send(text_data=json.dumps(text))
         # Or, to send a binary frame:
-        # self.send(bytes_data="Hello world!")
+
 
     def disconnect(self, close_code):
         # Called when the socket closes
